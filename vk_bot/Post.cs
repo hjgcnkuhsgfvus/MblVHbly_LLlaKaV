@@ -104,12 +104,11 @@ namespace vk_bot
 
         private void button2_Click(object sender, EventArgs e)
         {
+            progressBar1.Value = 0;
             foreach (ListViewItem lvi in listView1.Items)
             {
 
-                string request9 = "https://api.vk.com/method/likes.add?type=post&owner_id=" +
-                       lvi.SubItems[1].Text + "&item_id=" +
-                      lvi.SubItems[2].Text + "&access_token=" + Form1.access_token + "&v=5.92";
+                string request9 = "https://api.vk.com/method/likes.add?type=post&owner_id=" + lvi.SubItems[1].Text + "&item_id=" + lvi.SubItems[2].Text + "&access_token=" + Form1.access_token + "&v=5.92";
                 WebClient client1 = new WebClient();
                 string answer123 = Encoding.UTF8.GetString(client1.DownloadData(request9));
 
@@ -117,11 +116,21 @@ namespace vk_bot
                 Application.DoEvents();
                 
                 Random ranb = new Random();
-                int rand = ranb.Next(10000,1000000);
+                int rand = ranb.Next(1000,1000);
                 System.Threading.Thread.Sleep(rand);
-               
+
+                progressBar1.Value = progressBar1.Value +1;
 
             }
+
+            
+            if (progressBar1.Value == 20)
+            {
+                progressBar1.Visible = false;
+                label5.Visible = true;
+            }
+            label4.Visible = false;
+            
         }
     }
 }
